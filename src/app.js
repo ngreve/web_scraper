@@ -8,6 +8,7 @@ var latestVersion = ''
 async function run () {
   try {
     const version = await ScraperService.getKernelVersion()
+    console.log(new Date().toString(), `Current Kernel Version: ${version}`)
     if (latestVersion.length === 0) {
       /* first start of the web scraper */
       latestVersion = version
@@ -17,6 +18,7 @@ async function run () {
       await NotificationService.sendKernelNotification(version)
     }
     /* Recall function after <config.interval> milliseconds */
+    console.log('Next check: ', new Date(Date.now() + config.interval).toString())
     setTimeout(run, config.interval)
   } catch (err) {
     /* exit application if something went wrong */

@@ -1,30 +1,32 @@
 'use strict'
+
 const config = require('../config')
-const sendmail = require('sendmail')({ silent: true })
+const nodemailer = require('nodemailer')
+const transporter = nodemailer.createTransport({
+  host: 'smtp.mail.org',
+  port: 587,
+  secure: false,
+  auth: {
+    user: config.email.user,
+    pass: config.email.pass
+  }
+})
 
 module.exports = {
-  sendKernelNotification (version) {
-    return new Promise((resolve, reject) => {
-      const mail = Object.assign({}, config.emailOptions, {
-        subject: `Web_Scraper: Kernel ${version} available!`,
-        html: `Kernel ${version} available!<br>${config.uri}<br>Mail sent from web_scraper`
-      })
-      sendmail(mail, function (err, reply) {
-        if (err) reject(err)
-        resolve(reply)
-      })
+  async sendKernelNotification (version) {
+    await transporter.sendMail({
+      from: '"Your Name" <your@email.com>',
+      to: 'your@email.com',
+      subject: `Web_Scraper: Kernel ${version} available!`,
+      text: `Kernel ${version} available!\n${config.uri}\nMail sent from web_scraper`
     })
   },
-  sendErrorNotification (err) {
-    return new Promise((resolve, reject) => {
-      const mail = Object.assign({}, config.emailOptions, {
-        subject: `Web_Scraper: An error occured!`,
-        html: `Error message:<br><br>${err}`
-      })
-      sendmail(mail, function (err, reply) {
-        if (err) reject(err)
-        resolve(reply)
-      })
+  async sendErrorNotification (err) {
+    await transporter.sendMail({
+      from: '"Your Name" <your@email.com>',
+      to: 'your@email.com',
+      subject: `Web_Scraper: An error occured!`,
+      text: `Error message:\n\n${err}`
     })
   }
 }
