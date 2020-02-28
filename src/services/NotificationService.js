@@ -25,7 +25,7 @@ module.exports = {
     await transporter.sendMail({
       from: '"Your Name" <your@email.com>',
       to: 'your@email.com',
-      subject: `Web_Scraper: An error occured!`,
+      subject: 'Web_Scraper: An error occured!',
       text: `Error message:\n\n${err}`
     })
   }
