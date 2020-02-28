@@ -2,7 +2,7 @@
 This is a simple web scraper, written as a Node.js application. It checks if there is a new Linux
 kernel version available. If it detects a new kernel version it sends an email
 to the in the config.js defined address.  
-For further information visit my [corrosponding blog article](https://www.nicogreve.com/a-simple-web-scaper-with-email-notification/)
+For further information visit my [corresponding blog article](https://www.nicogreve.com/a-simple-web-scaper-with-email-notification/)
 
 # How to use it
 Change the parameter in the config.js file to your needs:
