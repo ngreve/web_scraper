@@ -3,7 +3,7 @@ const config = require('./config')
 const ScraperService = require('./services/ScraperService')
 const NotificationService = require('./services/NotificationService')
 
-var latestVersion = ''
+let latestVersion = ''
 
 async function run () {
   try {
